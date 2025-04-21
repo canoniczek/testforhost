@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <head>
     <title>test</title>
-    <script>
-    fetch('http://phishing-image.onrender.com/log', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        screenWidth: screen.width,
-        screenHeight: screen.height,
-        userAgent: navigator.userAgent,
-        language: navigator.language
-      })
-    });
-    </script>
 </head>
 <body>
     <h2>My page</h2>
     <img src="image-phishing.png" alt="">
+
+     <script>
+        fetch('http://phishing-image.onrender.com/log', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            userAgent: navigator.userAgent,
+            language: navigator.language
+          })
+        });
+        </script>
 </body>
