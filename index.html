@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <head>
     <title>test</title>
 </head>
@@ -21,3 +21,72 @@
         });
         </script>
 </body>
+ -->
+ <!--
+Testowa strona "victim-site" dla celów edukacyjnych (etyczny hacking)
+Zawiera celowo popełnione błędy: Open Redirect, formularz logowania, ukryty panel admina
+Zamieść ją na Render.com lub lokalnie, np. XAMPP
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Victim Test Page</title>
+  <meta name="robots" content="noindex"> <!-- symulacja CMS, blokuje indeksowanie -->
+</head>
+<body>
+  <h1>Welcome to Victim Site</h1>
+  <p>This site is under construction.</p>
+  <p><a href="redirect.php?url=https://evil.com">Click here for more info</a></p>
+  <p><a href="login.html">Login to admin panel</a></p>
+
+  <!-- Pozornie ukryta strona -->
+  <!-- <a href="/admin/">Secret Panel</a> -->
+
+</body>
+</html>
+
+<!-- login.html -->
+<!-- Formularz z błędnym zabezpieczeniem przeciwko brute-force -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Login</title></head>
+<body>
+  <h2>Login Panel</h2>
+  <form action="login.php" method="POST">
+    <label>Username: <input type="text" name="username"></label><br>
+    <label>Password: <input type="password" name="password"></label><br>
+    <input type="submit" value="Login">
+  </form>
+</body>
+</html>
+
+<!-- redirect.php -->
+<?php
+// Open Redirect podatność
+$url = $_GET['url'];
+header("Location: $url");
+exit;
+?>
+
+<!-- login.php -->
+<?php
+$user = $_POST['username'];
+$pass = $_POST['password'];
+
+if ($user == 'admin' && $pass == 'admin123') {
+  echo "<h1>Welcome admin!</h1>";
+} else {
+  echo "Login failed";
+}
+?>
+
+<!-- admin/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>Admin Panel</title></head>
+<body>
+  <h1>Secret Admin Panel</h1>
+  <p>Here you can manage the site.</p>
+</body>
+</html>
